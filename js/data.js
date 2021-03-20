@@ -1,0 +1,6 @@
+const getPhotoDescription = () => {
+  return {
+    id:
+
+  };
+};
