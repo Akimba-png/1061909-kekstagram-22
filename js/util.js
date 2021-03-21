@@ -5,15 +5,30 @@ const getRandomInteger = (min, max) => {
   throw new RangeError('Переданные значения не входят в допустимый диапазон');
 };
 
-const getUniqueRandomInteger = (min, max) => {
-  const uniqueValues = [];
-  const uniqueValue = getRandomInteger(min, max);
-
-
-}
 
 const verifyStringLength = (string, maxLength) => {
   return string.length <= maxLength;
 };
 
 
+const getRandomArrayElement = (elements) => {
+  return elements[getRandomInteger(0, elements.length - 1)];
+};
+
+
+const createUniqueRandomGenerator = (min, max) => {
+  const uniqueValues = [];
+  return () => {
+    if (uniqueValues.length >= (max - min + 1)) {
+      throw new Error('Превышен допустимый интервал диапазона');
+    }
+    let randomValue = getRandomInteger(min, max);
+    while (uniqueValues.includes(randomValue)) {
+      randomValue = getRandomInteger(min, max);
+    }
+    uniqueValues.push(randomValue);
+    return randomValue;
+  };
+};
+
+export {getRandomInteger, verifyStringLength, getRandomArrayElement, createUniqueRandomGenerator};
